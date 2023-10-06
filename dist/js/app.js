@@ -30,11 +30,11 @@ jQuery(document).ready(function ($) {
   loadPosts();
 
   // Add event listeners for filters
-  $('#tools-filter #search').on('input', function () {
-    loadPosts($(this).val(), $('#tools-filter #sort').val(), $('#tools-filter #category').val());
+  $('#ai-tool-filter #search').on('input', function () {
+    loadPosts($(this).val(), $('#ai-tool-filter #sort').val(), $('#ai-tool-filter #category').val());
   });
   $('#sort, #category').on('change', function () {
-    loadPosts($('#tools-filter #search').val(), $('#tools-filter #sort').val(), $('#tools-filter #category').val());
+    loadPosts($('#ai-tool-filter #search').val(), $('#ai-tool-filter #sort').val(), $('#ai-tool-filter #category').val());
   });
 });
 

@@ -68,14 +68,14 @@ add_action( 'init', function() {
             'new_item' => 'New Tool',
             'parent_item_colon' => 'Parent Tool:',
             'search_items' => 'Search Tools',
-            'not_found' => 'No tools found',
-            'not_found_in_trash' => 'No tools found in the bin',
+            'not_found' => 'No ai-tool found',
+            'not_found_in_trash' => 'No ai-tool found in the bin',
             'archives' => 'Tool Archives',
             'attributes' => 'Tool Attributes',
             'insert_into_item' => 'Insert into tool',
             'uploaded_to_this_item' => 'Uploaded to this tool',
-            'filter_items_list' => 'Filter tools list',
-            'filter_by_date' => 'Filter tools by date',
+            'filter_items_list' => 'Filter ai-tool list',
+            'filter_by_date' => 'Filter ai-tool by date',
             'items_list_navigation' => 'Tools list navigation',
             'items_list' => 'Tools list',
             'item_published' => 'Tool published.',
@@ -87,7 +87,7 @@ add_action( 'init', function() {
             'item_link_description' => 'A link to a tool.',
         ),
         'public' => true,
-        'has_archive' => 'ai-tools',
+        'has_archive' => 'ai-ai-tool',
         'show_in_rest' => true,
         'menu_icon' => 'dashicons-list-view',
         'rewrite' => array(
@@ -108,7 +108,7 @@ add_action( 'init', function() {
 } );
 
 /**
- * Fallback for excerpt for AI tools
+ * Fallback for excerpt for AI ai-tool
  */
 add_filter( 'get_the_excerpt', function ( $excerpt, $post ) {
     if ( ! empty( $excerpt ) ) {
@@ -149,8 +149,7 @@ function load_posts() {
 
     while ($query->have_posts()) {
         $query->the_post();
-        $post_slug = get_post_field('post_name', get_the_ID());
-        echo '<p>Slug: ' . $post_slug . '</p>';
+        get_template_part('template-parts/ai-tool/archive', 'post');
     }
 
     die();

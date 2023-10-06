@@ -13412,6 +13412,71 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+#posts-container {
+  margin-top: 0;
+}
+#posts-container .ai-tool-container {
+  position: relative;
+  height: 100%;
+  background: #fafafa;
+  border-radius: 25px;
+  overflow: hidden;
+  -webkit-box-shadow: 0 0 18px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 18px 0 rgba(0, 0, 0, 0.15);
+}
+#posts-container .ai-tool-container a {
+  text-decoration: none;
+}
+#posts-container .ai-tool-container p {
+  font-size: 14px;
+}
+#posts-container .ai-tool-container:hover img {
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+}
+#posts-container .ai-tool-container .image {
+  position: relative;
+  overflow: hidden;
+}
+#posts-container .ai-tool-container .image img {
+  -o-object-fit: cover;
+  object-fit: cover;
+  width: 100%;
+  height: 200px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+#posts-container .ai-tool-container .image .category {
+  position: absolute;
+  background: var(--primary-color);
+  color: black;
+  font-weight: bold;
+  padding: 5px 20px;
+  border-radius: 0 25px 0 0;
+  bottom: 0;
+  margin: 0;
+  z-index: 1;
+}
+#posts-container .ai-tool-container .content {
+  padding: 20px;
+}
+#posts-container .ai-tool-container .content h5, #posts-container .ai-tool-container .content .h5 {
+  font-weight: bold;
+  color: var(--text-color);
+  padding: 0;
+}
+#posts-container .ai-tool-container .content .description {
+  color: var(--text-color);
+  padding: 0;
+}
+#posts-container .ai-tool-container .content .pricing {
+  color: var(--text-color);
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+}
+
 .container {
   width: 80%;
   max-width: 1080px;

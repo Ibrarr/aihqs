@@ -5,7 +5,7 @@ Template Name: Ai Tools Archive
 get_header(); ?>
 
     <div class="container">
-        <div id="tools-filter">
+        <div id="ai-tool-filter">
             <input type="text" id="search" placeholder="Search">
 
             <select id="sort">
@@ -29,7 +29,7 @@ get_header(); ?>
             </select>
         </div>
 
-        <div id="posts-container">
+        <div class="row g-5" id="posts-container">
             <!-- Posts will be loaded here -->
         </div>
     </div><!-- #container -->

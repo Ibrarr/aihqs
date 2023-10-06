@@ -1,0 +1,67 @@
+#posts-container {
+  margin-top: 0;
+
+  .ai-tool-container {
+    position: relative;
+    height: 100%;
+    background: #fafafa;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 0 18px 0 rgba(0,0,0,0.15);
+
+    a {
+      text-decoration: none;
+    }
+
+    p {
+      font-size: 14px;
+    }
+
+    &:hover img {
+      transform: scale(1.2);
+    }
+
+    .image {
+      position: relative;
+      overflow: hidden;
+
+      img {
+        object-fit: cover;
+        width: 100%;
+        height: 200px;
+        transition: all .3s;
+      }
+      .category {
+        position: absolute;
+        background: var(--primary-color);
+        color: black;
+        font-weight: bold;
+        padding: 5px 20px;
+        border-radius: 0 25px 0 0;
+        bottom: 0;
+        margin: 0;
+        z-index: 1;
+      }
+    }
+
+    .content {
+      padding: 20px;
+
+      h5 {
+        font-weight: bold;
+        color: var(--text-color);
+        padding: 0;
+      }
+      .description {
+        color: var(--text-color);
+        padding: 0;
+      }
+      .pricing {
+        color: var(--text-color);
+        font-weight: bold;
+        padding: 0;
+        margin: 0;
+      }
+    }
+  }
+}
