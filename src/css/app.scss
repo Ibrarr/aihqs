@@ -1,0 +1,14 @@
+:root {
+  --primary-color: #99edcc;
+  --text-color: #212121;
+}
+
+@import "~bootstrap/scss/bootstrap";
+
+.container {
+  width: 80%;
+  max-width: 1080px;
+  margin: auto;
+  padding: 0;
+  position: relative;
+}
