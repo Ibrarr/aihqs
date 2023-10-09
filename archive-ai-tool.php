@@ -60,8 +60,9 @@ get_header(); ?>
             <!-- Posts will be loaded here -->
         </div>
         <div id="loading-indicator" style="display: none;">
-            <h1>loading</h1>
-            <img src="path/to/your/loading-spinner.gif" alt="Loading..." />
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
         </div>
     </div><!-- #container -->
 
