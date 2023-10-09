@@ -2,7 +2,12 @@ jQuery(document).ready(function($) {
     let offset = 0;
     let isLoading = false;
 
-    function loadPosts(search = '', sort = 'date', category = '', pricing = '') {
+    let params = new URLSearchParams(window.location.search);
+    let initialSearchTerm = params.get('tool') || '';
+    $('#ai-tool-filter #search').val(initialSearchTerm);
+
+
+    function loadPosts(search = initialSearchTerm, sort = 'date', category = '', pricing = '') {
         if(isLoading) return;
         isLoading = true;
         $('#loading-indicator').show();
@@ -36,7 +41,7 @@ jQuery(document).ready(function($) {
         });
     }
 
-    loadPosts();
+    loadPosts(initialSearchTerm);
 
     $(window).scroll(function() {
         if ($(window).scrollTop() + $(window).height() > $('#posts-container').height() - 100) {

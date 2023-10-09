@@ -181,3 +181,11 @@ function load_posts() {
 }
 add_action('wp_ajax_load_posts', 'load_posts');
 add_action('wp_ajax_nopriv_load_posts', 'load_posts');
+
+add_action( 'template_redirect', 'wpb_change_search_url' );
+function wpb_change_search_url() {
+    if ( is_search() && ! empty( $_GET['s'] ) ) {
+        wp_redirect( home_url( "/ai-tools/" ) . '?tool=' . urlencode( get_query_var( 's' ) ) );
+        exit();
+    }
+}

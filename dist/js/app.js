@@ -10,8 +10,11 @@
 jQuery(document).ready(function ($) {
   var offset = 0;
   var isLoading = false;
+  var params = new URLSearchParams(window.location.search);
+  var initialSearchTerm = params.get('tool') || '';
+  $('#ai-tool-filter #search').val(initialSearchTerm);
   function loadPosts() {
-    var search = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+    var search = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialSearchTerm;
     var sort = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'date';
     var category = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
     var pricing = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
@@ -46,7 +49,7 @@ jQuery(document).ready(function ($) {
       }
     });
   }
-  loadPosts();
+  loadPosts(initialSearchTerm);
   $(window).scroll(function () {
     if ($(window).scrollTop() + $(window).height() > $('#posts-container').height() - 100) {
       loadPosts($('#ai-tool-filter #search').val(), $('#ai-tool-filter #sort').val(), $('#ai-tool-filter #category').val(), $('#ai-tool-filter #pricing').val());
