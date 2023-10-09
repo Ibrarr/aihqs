@@ -157,9 +157,7 @@
   }
 }
 
-#posts-container {
-  padding-top: 25px;
-
+#posts-container, #homepage-tools {
   .ai-tool-container {
     position: relative;
     height: 100%;
@@ -228,6 +226,14 @@
         span {
           font-weight: bold;
         }
+      }
+      .rmp-results-widget {
+        color: var(--text-color);
+        font-size: 14px;
+        line-height: 14px;
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
       }
     }
   }

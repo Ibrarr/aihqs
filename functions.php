@@ -20,20 +20,6 @@ function enqueue_styles_scripts()
 define( 'DISALLOW_FILE_EDIT', true );
 
 /**
- * Remove yasr metabox on admin pages
- */
-add_action('add_meta_boxes', 'plt_hide_yet_another_stars_rating_metaboxes', 20);
-function plt_hide_yet_another_stars_rating_metaboxes() {
-    $screen = get_current_screen();
-    if ( !$screen ) {
-        return;
-    }
-
-    //Hide the "Yet Another Stars Rating" meta box.
-    remove_meta_box('yasr_metabox_below_editor', $screen->id, 'normal');
-}
-
-/**
  * Remove project post type
  */
 add_filter( 'et_project_posttype_args', 'mytheme_et_project_posttype_args', 10, 1 );
@@ -91,7 +77,7 @@ add_action( 'init', function() {
             'item_link_description' => 'A link to a tool.',
         ),
         'public' => true,
-        'has_archive' => 'ai-ai-tool',
+        'has_archive' => 'ai-tools',
         'show_in_rest' => true,
         'menu_icon' => 'dashicons-list-view',
         'rewrite' => array(
@@ -182,10 +168,43 @@ function load_posts() {
 add_action('wp_ajax_load_posts', 'load_posts');
 add_action('wp_ajax_nopriv_load_posts', 'load_posts');
 
+
+/**
+ * Direct all searches to tool directory
+ */
 add_action( 'template_redirect', 'wpb_change_search_url' );
 function wpb_change_search_url() {
     if ( is_search() && ! empty( $_GET['s'] ) ) {
         wp_redirect( home_url( "/ai-tools/" ) . '?tool=' . urlencode( get_query_var( 's' ) ) );
         exit();
     }
+}
+
+/**
+ * 6 post shortcode
+ */
+add_shortcode( 'recent_ai_tool_posts', 'recent_ai_tool_posts_shortcode' );
+function recent_ai_tool_posts_shortcode() {
+    $args = array(
+        'post_type'      => 'ai-tool',
+        'posts_per_page' => 6,
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+    );
+
+    $query = new WP_Query( $args );
+
+    ob_start();
+    if ( $query->have_posts() ) {
+        ?><div class="row g-5" id="homepage-tools"><?php
+        while ( $query->have_posts() ) {
+            $query->the_post();
+            get_template_part('template-parts/ai-tool/archive', 'post');
+        }
+        ?></div><?php
+    } else {
+        echo '<p>No Tools found</p>';
+    }
+    wp_reset_postdata();
+    return ob_get_clean();
 }

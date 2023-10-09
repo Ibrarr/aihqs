@@ -15,8 +15,7 @@ $first_category_name = $first_category->name;
                 <h5><?php echo get_the_title(); ?></h5>
                 <p class="description"><?php the_field('short_description'); ?></p>
                 <p class="pricing">Pricing: <span> <?php the_field('pricing'); ?></span></p>
-                <?php echo do_shortcode("[yasr_overall_rating size='small' postid='".get_the_ID()."']"); ?>
-                <?php // echo do_shortcode('[yasr_visitor_votes size="small" readonly="yes"]'); ?>
+                <?php echo do_shortcode("[ratemypost-result]"); ?>
             </div>
         </a>
     </div>
