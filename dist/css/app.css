@@ -13440,7 +13440,7 @@ textarea.form-control-lg {
   -ms-transform: translateY(-50%) scaleX(-1);
   transform: translateY(-50%) scaleX(-1);
   pointer-events: none;
-  z-index: 9;
+  z-index: 1;
 }
 #ai-tool-filter .selectize-input {
   font-size: 16px;
@@ -13453,6 +13453,9 @@ textarea.form-control-lg {
 }
 #ai-tool-filter .selectize-input::before {
   display: none;
+}
+#ai-tool-filter .selectize-input.dropdown-active {
+  border-color: black !important;
 }
 #ai-tool-filter .selectize-input input {
   font-size: 16px;
@@ -13498,9 +13501,12 @@ textarea.form-control-lg {
   padding: 15px 20px;
   height: 50px !important;
   font-family: "Montserrat", Helvetica, Arial, Lucida, sans-serif;
-  color: #a0a0a0;
+  color: #6f6f6f;
   cursor: pointer;
   border: 1px solid #bbb;
+}
+#ai-tool-filter .custom-select .select-selected.select-arrow-active {
+  border-color: black !important;
 }
 #ai-tool-filter .custom-select .select-selected:after {
   position: absolute;

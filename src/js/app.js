@@ -1,5 +1,12 @@
 jQuery(document).ready(function($) {
+    let offset = 0;
+    let isLoading = false;
+
     function loadPosts(search = '', sort = 'date', category = '', pricing = '') {
+        if(isLoading) return;
+        isLoading = true;
+        $('#loading-indicator').show();
+
         $.ajax({
             url: frontendajax.ajaxurl,
             data: {
@@ -7,23 +14,43 @@ jQuery(document).ready(function($) {
                 search: search,
                 sort: sort,
                 category: category,
-                pricing: pricing, // sending the pricing value
+                pricing: pricing,
+                offset: offset
             },
             success: function(response) {
-                $('#posts-container').html(response);
+                if(response.trim() !== "") {
+                    if(offset === 0) {
+                        $('#posts-container').html(response);
+                    } else {
+                        $('#posts-container').append(response);
+                    }
+                    offset += 12;
+                }
+                $('#loading-indicator').hide();
+                isLoading = false;
+            },
+            error: function() {
+                $('#loading-indicator').hide();
+                isLoading = false;
             }
         });
     }
 
-    // Initially load posts
     loadPosts();
 
-    // Add event listeners for filters
+    $(window).scroll(function() {
+        if ($(window).scrollTop() + $(window).height() > $('#posts-container').height() - 100) {
+            loadPosts($('#ai-tool-filter #search').val(), $('#ai-tool-filter #sort').val(), $('#ai-tool-filter #category').val(), $('#ai-tool-filter #pricing').val());
+        }
+    });
+
     $('#ai-tool-filter #search').on('input', function() {
+        offset = 0;
         loadPosts($(this).val(), $('#ai-tool-filter #sort').val(), $('#ai-tool-filter #category').val(), $('#ai-tool-filter #pricing').val());
     });
 
     $('#ai-tool-filter #sort, #ai-tool-filter #category, #ai-tool-filter #pricing').on('change', function() {
+        offset = 0;
         loadPosts($('#ai-tool-filter #search').val(), $('#ai-tool-filter #sort').val(), $('#ai-tool-filter #category').val(), $('#ai-tool-filter #pricing').val());
     });
 
@@ -31,6 +58,7 @@ jQuery(document).ready(function($) {
         allowEmptyOption: true,
         placeholder: 'All Categories',
         onChange: function(value) {
+            offset = 0;
             loadPosts($('#ai-tool-filter #search').val(), $('#ai-tool-filter #sort').val(), value, $('#ai-tool-filter #pricing').val());
         }
     });

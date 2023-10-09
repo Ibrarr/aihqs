@@ -134,10 +134,12 @@ function load_posts() {
     $sort = $_GET['sort'];
     $category = $_GET['category'];
     $pricing = $_GET['pricing'];
+    $offset = $_GET['offset'];
 
     $args = array(
         'post_type' => 'ai-tool',
         'posts_per_page' => 12,
+        'offset' => (int)$offset,
         's' => $search,
         'orderby' => $sort === 'title' ? 'title' : 'date',
         'order' => $sort === 'title' ? 'ASC' : 'DESC',
@@ -164,6 +166,11 @@ function load_posts() {
     }
 
     $query = new WP_Query($args);
+
+    if (!$query->have_posts()) {
+        echo '<h3 style=" margin-bottom: 0; padding-bottom: 0; ">No results found</h3>';
+        die();
+    }
 
     while ($query->have_posts()) {
         $query->the_post();

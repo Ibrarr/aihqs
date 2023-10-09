@@ -7,10 +7,10 @@ get_header(); ?>
     <div class="container">
         <div id="ai-tool-filter">
             <div class="row">
-                <div class="search col-md-8">
+                <div class="search col-md-8 col-sm-6">
                     <input type="text" id="search" placeholder="Find an AI tool">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-6 mt-3 mt-sm-0">
                     <div class="custom-select">
                         <select id="sort">
                             <option value="">Date Added</option>
@@ -19,7 +19,7 @@ get_header(); ?>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-6 mt-3">
+                <div class="col-sm-6 mt-3">
                     <select id="category">
                         <?php
                         $categories = get_terms(array(
@@ -35,7 +35,7 @@ get_header(); ?>
                         ?>
                     </select>
                 </div>
-                <div class="col-md-6 mt-3">
+                <div class="col-sm-6 mt-3">
                     <div class="custom-select">
                         <select id="pricing">
                             <?php
@@ -58,6 +58,10 @@ get_header(); ?>
 
         <div class="row g-5" id="posts-container">
             <!-- Posts will be loaded here -->
+        </div>
+        <div id="loading-indicator" style="display: none;">
+            <h1>loading</h1>
+            <img src="path/to/your/loading-spinner.gif" alt="Loading..." />
         </div>
     </div><!-- #container -->
 
