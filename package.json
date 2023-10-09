@@ -21,6 +21,7 @@
     "sass-loader": "^12.1.0"
   },
   "dependencies": {
+    "@selectize/selectize": "^0.15.2",
     "autoprefixer": "^10.4.14",
     "bootstrap": "^5.3.1"
   },

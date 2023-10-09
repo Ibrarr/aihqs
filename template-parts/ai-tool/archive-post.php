@@ -14,7 +14,7 @@ $first_category_name = $first_category->name;
             <div class="content">
                 <h5><?php echo get_the_title(); ?></h5>
                 <p class="description"><?php the_field('short_description'); ?></p>
-                <p class="pricing"><?php the_field('pricing'); ?></p>
+                <p class="pricing">Pricing: <span> <?php the_field('pricing'); ?></span></p>
             </div>
         </a>
     </div>

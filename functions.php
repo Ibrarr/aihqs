@@ -4,9 +4,13 @@ function enqueue_styles_scripts()
 {
     wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
     wp_enqueue_style('child-style', get_stylesheet_uri() . '/style.css');
+
     wp_enqueue_style('site', get_stylesheet_directory_uri().'/dist/css/app.css', [], filemtime(  get_stylesheet_directory().'/dist/css/app.css' ), 'all');
+    wp_enqueue_style('selectize', get_stylesheet_directory_uri().'/dist/css/selectize.css', [], filemtime(  get_stylesheet_directory().'/dist/css/selectize.css' ), 'all');
 
     wp_enqueue_script('site', get_stylesheet_directory_uri().'/dist/js/app.js', ['jquery'], filemtime(  get_stylesheet_directory().'/dist/js/app.js' ), true);
+    wp_enqueue_script('selectize', get_stylesheet_directory_uri().'/dist/js/selectize.js', [], filemtime(  get_stylesheet_directory().'/dist/js/selectize.js' ), true);
+
     wp_localize_script('site', 'frontendajax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ));
 }
 
@@ -122,10 +126,14 @@ add_filter( 'get_the_excerpt', function ( $excerpt, $post ) {
     return $excerpt;
 }, 10, 2 );
 
+/**
+ * Ajax calls for directory page
+ */
 function load_posts() {
     $search = $_GET['search'];
     $sort = $_GET['sort'];
     $category = $_GET['category'];
+    $pricing = $_GET['pricing'];
 
     $args = array(
         'post_type' => 'ai-tool',
@@ -141,6 +149,16 @@ function load_posts() {
                 'taxonomy' => 'category',
                 'field' => 'slug',
                 'terms' => $category,
+            ),
+        );
+    }
+
+    if ($pricing) {
+        $args['meta_query'] = array(
+            array(
+                'key' => 'pricing',
+                'value' => $pricing,
+                'compare' => '=',
             ),
         );
     }
