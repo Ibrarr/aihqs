@@ -13,6 +13,11 @@ jQuery(document).ready(function ($) {
   var params = new URLSearchParams(window.location.search);
   var initialSearchTerm = params.get('tool') || '';
   $('#ai-tool-filter #search').val(initialSearchTerm);
+  function scrollHandler() {
+    if ($(window).scrollTop() + $(window).height() > $('#posts-container').height() - 100) {
+      loadPosts($('#ai-tool-filter #search').val(), $('#ai-tool-filter #sort').val(), $('#ai-tool-filter #category').val(), $('#ai-tool-filter #pricing').val());
+    }
+  }
   function loadPosts() {
     var search = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialSearchTerm;
     var sort = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'date';
@@ -32,14 +37,26 @@ jQuery(document).ready(function ($) {
         offset: offset
       },
       success: function success(response) {
-        if (response.trim() !== "") {
+        var data = JSON.parse(response);
+        if (data.count > 0) {
           if (offset === 0) {
-            $('#posts-container').html(response);
+            $('#posts-container').html(data.html);
           } else {
-            $('#posts-container').append(response);
+            $('#posts-container').append(data.html);
           }
-          offset += 12;
+
+          // If less than 12 posts, unbind the scroll event
+          if (data.count < 12) {
+            $(window).off('scroll', scrollHandler); // This line unbinds the specific scroll event handler
+          } else {
+            offset += 12;
+          }
+        } else if (data.count === 0 && offset === 0) {
+          // No results found for the first call
+          $('#posts-container').html(data.html); // Update with "No results found" message
+          $(window).off('scroll', scrollHandler); // Unbind the scroll event handler
         }
+
         $('#loading-indicator').hide();
         isLoading = false;
       },
@@ -50,25 +67,27 @@ jQuery(document).ready(function ($) {
     });
   }
   loadPosts(initialSearchTerm);
-  $(window).scroll(function () {
-    if ($(window).scrollTop() + $(window).height() > $('#posts-container').height() - 100) {
-      loadPosts($('#ai-tool-filter #search').val(), $('#ai-tool-filter #sort').val(), $('#ai-tool-filter #category').val(), $('#ai-tool-filter #pricing').val());
-    }
-  });
+  $(window).scroll(scrollHandler);
   $('#ai-tool-filter #search').on('input', function () {
     offset = 0;
+    $(window).off('scroll');
     loadPosts($(this).val(), $('#ai-tool-filter #sort').val(), $('#ai-tool-filter #category').val(), $('#ai-tool-filter #pricing').val());
+    $(window).scroll(scrollHandler);
   });
   $('#ai-tool-filter #sort, #ai-tool-filter #category, #ai-tool-filter #pricing').on('change', function () {
     offset = 0;
+    $(window).off('scroll');
     loadPosts($('#ai-tool-filter #search').val(), $('#ai-tool-filter #sort').val(), $('#ai-tool-filter #category').val(), $('#ai-tool-filter #pricing').val());
+    $(window).scroll(scrollHandler);
   });
   $("#ai-tool-filter #category").selectize({
     allowEmptyOption: true,
     placeholder: 'All Categories',
     onChange: function onChange(value) {
       offset = 0;
+      $(window).off('scroll');
       loadPosts($('#ai-tool-filter #search').val(), $('#ai-tool-filter #sort').val(), value, $('#ai-tool-filter #pricing').val());
+      $(window).scroll(scrollHandler);
     }
   });
 });

@@ -154,15 +154,19 @@ function load_posts() {
     $query = new WP_Query($args);
 
     if (!$query->have_posts()) {
-        echo '<h3 style=" margin-bottom: 0; padding-bottom: 0; ">No results found</h3>';
+        echo json_encode(array('count' => 0, 'html' => '<h3 class="no-results">No results found</h3>'));
         die();
     }
 
+    $posts_html = '';
     while ($query->have_posts()) {
         $query->the_post();
+        ob_start();
         get_template_part('template-parts/ai-tool/archive', 'post');
+        $posts_html .= ob_get_clean();
     }
 
+    echo json_encode(array('count' => $query->post_count, 'html' => $posts_html));
     die();
 }
 add_action('wp_ajax_load_posts', 'load_posts');

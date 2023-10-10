@@ -13647,6 +13647,11 @@ textarea.form-control-lg {
   margin-top: 40px;
 }
 
+.no-results {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
 .single-ai-tool .rmp-rating-widget .rmp-heading {
   font-weight: bold;
   padding: 0;
