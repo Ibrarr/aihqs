@@ -163,6 +163,22 @@
       background-color: rgb(153 237 204 / 10%);
     }
   }
+
+  #clear-filters {
+    display: flex;
+    text-align: right;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 0;
+    justify-content: flex-end;
+    align-items: center;
+
+    &:before {
+      font-family: ETModules;
+      content: '\4d';
+      margin-top: 3.5px;
+    }
+  }
 }
 
 #posts-container, #homepage-tools {

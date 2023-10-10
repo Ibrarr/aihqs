@@ -10,7 +10,7 @@ get_header(); ?>
                 <div class="search col-md-8 col-sm-6">
                     <input type="text" id="search" placeholder="Find an AI tool">
                 </div>
-                <div class="col-md-4 col-sm-6 d-none d-sm-block mt-3 mt-sm-0">
+                <div class="col-md-4 col-sm-6 d-none d-sm-block mt-3 mt-sm-0 sort-filter">
                     <div class="custom-select">
                         <select id="sort">
                             <option value="">Date Added</option>
@@ -35,7 +35,7 @@ get_header(); ?>
                         ?>
                     </select>
                 </div>
-                <div class="col-sm-6 d-none d-sm-block mt-3">
+                <div class="col-sm-6 d-none d-sm-block mt-3 pricing-filter">
                     <div class="custom-select">
                         <select id="pricing">
                             <?php
@@ -53,6 +53,7 @@ get_header(); ?>
                         </select>
                     </div>
                 </div>
+                <div class="mt-3"><span id="clear-filters">Clear Filters</span></div>
             </div>
         </div>
 

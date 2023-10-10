@@ -13558,6 +13558,26 @@ textarea.form-control-lg {
 #ai-tool-filter .custom-select .select-items div:hover, #ai-tool-filter .custom-select .same-as-selected {
   background-color: rgba(153, 237, 204, 0.1);
 }
+#ai-tool-filter #clear-filters {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: right;
+  cursor: pointer;
+  font-size: 14px;
+  margin: 0;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+#ai-tool-filter #clear-filters:before {
+  font-family: ETModules;
+  content: "M";
+  margin-top: 3.5px;
+}
 
 #posts-container .ai-tool-container, #homepage-tools .ai-tool-container {
   position: relative;

@@ -83,4 +83,25 @@ jQuery(document).ready(function($) {
             $(window).scroll(scrollHandler);
         }
     });
+
+    $('#clear-filters').on('click', function() {
+        $('#ai-tool-filter #search').val('');
+
+        let selectize = $("#ai-tool-filter #category")[0].selectize;
+        if (selectize) {
+            selectize.clear();
+        }
+
+        $('#ai-tool-filter #sort').val('date');
+        $('#ai-tool-filter #pricing').val('');
+
+        $('#ai-tool-filter .sort-filter .select-selected').text('Date Added');
+        $('#ai-tool-filter .pricing-filter .select-selected').text('All Pricing');
+
+        offset = 0;
+        $(window).off('scroll');
+        loadPosts('', 'date', '', '');
+        $(window).scroll(scrollHandler);
+    });
+
 });
