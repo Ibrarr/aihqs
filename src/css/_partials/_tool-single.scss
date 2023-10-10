@@ -1,0 +1,19 @@
+.single-ai-tool {
+  .rmp-rating-widget {
+    .rmp-heading {
+      font-weight: bold;
+      padding: 0;
+    }
+    .rmp-rating-widget__hover-text {
+      display: none;
+    }
+    .rmp-rating-widget__results {
+      padding: 0;
+    }
+  }
+
+  .pricing-single .et_pb_text_inner:before {
+    content: 'Pricing: ';
+    font-weight: bold;
+  }
+}

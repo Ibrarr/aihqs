@@ -181,7 +181,7 @@ function wpb_change_search_url() {
 }
 
 /**
- * 6 post shortcode
+ * Recent tools
  */
 add_shortcode( 'recent_ai_tool_posts', 'recent_ai_tool_posts_shortcode' );
 function recent_ai_tool_posts_shortcode() {
@@ -207,4 +207,48 @@ function recent_ai_tool_posts_shortcode() {
     }
     wp_reset_postdata();
     return ob_get_clean();
+}
+
+
+/**
+ * Related tools
+ */
+add_shortcode( 'related_ai_tool_posts', 'related_ai_tool_posts_shortcode' );
+function related_ai_tool_posts_shortcode() {
+    global $post;
+    $current_post_id = $post->ID;
+    $categories = get_the_category($current_post_id);
+    $first_category = $categories[0];
+
+    $args = array(
+        'post_type'      => 'ai-tool',
+        'posts_per_page' => 6,
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+        'category__in' => array($first_category->term_id),
+        'post__not_in' => array($current_post_id),
+    );
+
+    $query = new WP_Query( $args );
+
+    ob_start();
+    if ( $query->have_posts() ) {
+        ?><div class="row g-5" id="homepage-tools"><?php
+        while ( $query->have_posts() ) {
+            $query->the_post();
+            get_template_part('template-parts/ai-tool/archive', 'post');
+        }
+        ?></div><?php
+    } else {
+        echo '<p>No Tools found</p>';
+    }
+    wp_reset_postdata();
+    return ob_get_clean();
+}
+
+add_shortcode('et_social_share_custom', 'monarchShortcode');
+function monarchShortcode(){
+    $monarch = $GLOBALS['et_monarch'];
+    $monarch_options = $monarch->monarch_options;
+    return $monarch->generate_inline_icons('et_social_inline_custom');
 }

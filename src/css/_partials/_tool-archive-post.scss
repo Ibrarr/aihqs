@@ -70,6 +70,10 @@
       padding: 15px 20px !important;
       text-align: left;
 
+      &:not(:last-child) {
+        border-bottom: 1px solid #bbb;
+      }
+
       &.active {
         background-color: rgb(153 237 204 / 10%) !important;
       }
@@ -139,6 +143,10 @@
       div {
         font-size: 16px;
         padding: 15px 20px !important;
+
+        &:not(:last-child) {
+          border-bottom: 1px solid #bbb;
+        }
 
         &.same-as-selected {
           background-color: var(--primary-color);
