@@ -1,0 +1,20 @@
+.single-post {
+  .post-image-column {
+    img {
+      object-fit: cover;
+    }
+  }
+
+  .post-content-column {
+    .post-cats {
+      a {
+        background-color: var(--primary-color);
+        color: black;
+        font-weight: bold;
+        padding: 5px 10px;
+        border-radius: 15px;
+        text-decoration: none;
+      }
+    }
+  }
+}

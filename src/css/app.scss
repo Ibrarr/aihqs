@@ -1,11 +1,16 @@
 :root {
   --primary-color: #99edcc;
   --text-color: #212121;
+  --transition-all: all .5s
 }
 
 @import "~bootstrap/scss/bootstrap";
+
 @import "_partials/tool-archive-post";
 @import "_partials/tool-single";
+
+@import "_partials/post-archive-post";
+@import "_partials/post-single";
 
 .container {
   width: 80%;

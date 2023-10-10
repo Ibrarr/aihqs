@@ -209,7 +209,6 @@ function recent_ai_tool_posts_shortcode() {
     return ob_get_clean();
 }
 
-
 /**
  * Related tools
  */
@@ -246,9 +245,95 @@ function related_ai_tool_posts_shortcode() {
     return ob_get_clean();
 }
 
+/**
+ * Related posts
+ */
+add_shortcode( 'related_posts', 'related_posts_shortcode' );
+function related_posts_shortcode() {
+    global $post;
+    $current_post_id = $post->ID;
+    $categories = get_the_category($current_post_id);
+    $first_category = $categories[0];
+
+    $args = array(
+        'post_type'      => 'post',
+        'posts_per_page' => 6,
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+        'category__in' => array($first_category->term_id),
+        'post__not_in' => array($current_post_id),
+    );
+
+    $query = new WP_Query( $args );
+
+    ob_start();
+    if ( $query->have_posts() ) {
+        ?><div class="row g-5" id="posts-grid-container"><?php
+        while ( $query->have_posts() ) {
+            $query->the_post();
+            get_template_part('template-parts/post/archive', 'post');
+        }
+        ?></div><?php
+    } else {
+        echo '<p>No posts found</p>';
+    }
+    wp_reset_postdata();
+    return ob_get_clean();
+}
+
+/**
+ * Recent posts
+ */
+add_shortcode( 'recent_posts', 'recent_posts_shortcode' );
+function recent_posts_shortcode() {
+    $args = array(
+        'post_type'      => 'post',
+        'posts_per_page' => 6,
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+    );
+
+    $query = new WP_Query( $args );
+
+    ob_start();
+    if ( $query->have_posts() ) {
+        ?><div class="row g-5" id="posts-grid-container"><?php
+        while ( $query->have_posts() ) {
+            $query->the_post();
+            get_template_part('template-parts/post/archive', 'post');
+        }
+        ?></div><?php
+    } else {
+        echo '<p>No posts found</p>';
+    }
+    wp_reset_postdata();
+    return ob_get_clean();
+}
+
+/**
+ * Monarch shortcode
+ */
 add_shortcode('et_social_share_custom', 'monarchShortcode');
 function monarchShortcode(){
     $monarch = $GLOBALS['et_monarch'];
     $monarch_options = $monarch->monarch_options;
     return $monarch->generate_inline_icons('et_social_inline_custom');
+}
+
+/**
+ * Save first category in post meta on save
+ */
+add_action( 'save_post', 'save_first_category_link_as_custom_field' );
+function save_first_category_link_as_custom_field( $post_id ) {
+    if ( wp_is_post_revision( $post_id ) )
+        return;
+
+    $categories = get_the_category( $post_id );
+
+    if ( $categories && ! is_wp_error( $categories ) ) {
+        $first_category = $categories[0];
+        $first_category_link = get_category_link( $first_category->term_id );
+        $link_html = '<a href="' . esc_url( $first_category_link ) . '">' . esc_html( $first_category->name ) . '</a>';
+        update_post_meta( $post_id, 'first_category_name_and_link', $link_html );
+    }
 }
