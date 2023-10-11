@@ -1,8 +1,4 @@
-<?php
-/*
-Template Name: Ai Tools Archive
-*/
-get_header(); ?>
+<?php get_header(); ?>
 
     <div class="container">
         <div id="ai-tool-filter">

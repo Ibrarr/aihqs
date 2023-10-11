@@ -353,6 +353,60 @@ function posts_archive_shortcode() {
 }
 
 /**
+ * Category archive
+ */
+add_shortcode( 'category_archive', 'category_archive_shortcode' );
+function category_archive_shortcode() {
+    $category = get_query_var('category_name') ? get_query_var('category_name') : '';
+
+    $args = array(
+        'post_type' => array('ai-tool'),
+        'posts_per_page' => 12,
+        'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
+    );
+
+    if ($category) {
+        $args['tax_query'] = array(
+            array(
+                'taxonomy' => 'category',
+                'field'    => 'slug',
+                'terms'    => $category,
+            ),
+        );
+    }
+
+    $query = new WP_Query( $args );
+
+    ob_start();
+    if ( $query->have_posts() ) {
+        ?><div class="row g-5" id="posts-grid-container"><?php
+        while ( $query->have_posts() ) {
+            $query->the_post();
+            if (get_post_type() == 'ai-tool') {
+                get_template_part('template-parts/category/tool', 'post');
+            } else {
+                get_template_part('template-parts/category/regular', 'post');
+            }
+        }
+        ?>
+        </div>
+        <div class="post-archive-pagination">
+        <?php
+        echo paginate_links(array(
+            'total' => $query->max_num_pages,
+            'mid_size' => 1,
+            'prev_text' => '<span class="prev-icon"></span>',
+            'next_text' => '<span class="next-icon"></span>',
+        ));
+        ?></div><?php
+    } else {
+        echo '<p>No posts found</p>';
+    }
+    wp_reset_postdata();
+    return ob_get_clean();
+}
+
+/**
  * Monarch shortcode
  */
 add_shortcode('et_social_share_custom', 'monarchShortcode');
