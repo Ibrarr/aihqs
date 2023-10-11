@@ -1,0 +1,42 @@
+.post-archive-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  align-items: center;
+  justify-content: center;
+
+  .page-numbers {
+    padding: 10px;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+
+    &.current {
+      padding: 5px 10px;
+      border: 2px solid var(--primary-color);
+      border-radius: 5px;
+    }
+  }
+
+  span.page-numbers.dots {
+    padding: 10px 5px;
+  }
+
+  .next-icon::before {
+    content: '\35';
+    font-family: 'ETModules';
+    font-size: 20px;
+    padding: 6px;
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+  }
+
+  .prev-icon::before {
+    content: '\34';
+    font-family: 'ETModules';
+    font-size: 20px;
+    padding: 6px;
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+  }
+}

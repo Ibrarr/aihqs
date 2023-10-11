@@ -6,9 +6,12 @@
 
 @import "~bootstrap/scss/bootstrap";
 
+@import "_partials/header";
+
 @import "_partials/tool-archive-post";
 @import "_partials/tool-single";
 
+@import "_partials/post-archive-pagination";
 @import "_partials/post-archive-post";
 @import "_partials/post-single";
 

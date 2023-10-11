@@ -13413,6 +13413,43 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.et_pb_menu_0_tb_header.et_pb_menu ul li.current-menu-item a:after {
+  border-bottom: 1px solid var(--primary-color);
+  content: "";
+  display: block;
+  width: 100%;
+  position: absolute;
+  bottom: 10px;
+}
+
+.et_mobile_menu {
+  border-top: 0 !important;
+  min-width: 100vw;
+  margin-left: -10vw;
+}
+.et_mobile_menu li {
+  text-align: center !important;
+}
+.et_mobile_menu li li, .et_mobile_menu .et_mobile_menu li ul {
+  padding-left: 0 !important;
+}
+.et_mobile_menu .mobile_nav.opened .mobile_menu_bar:before {
+  content: "M" !important;
+}
+
+#mobile_menu1 {
+  padding: 0 !important;
+}
+#mobile_menu1 li.current-menu-item {
+  background: var(--primary-color);
+}
+#mobile_menu1 a {
+  text-decoration: none;
+}
+#mobile_menu1 a:after {
+  content: none;
+}
+
 #ai-tool-filter {
   border-bottom: 1px solid #b2b2b2;
   padding-bottom: 20px;
@@ -13685,6 +13722,50 @@ textarea.form-control-lg {
 .single-ai-tool .pricing-single .et_pb_text_inner:before {
   content: "Pricing: ";
   font-weight: bold;
+}
+
+.post-archive-pagination {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-top: 40px;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.post-archive-pagination .page-numbers {
+  padding: 10px;
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+.post-archive-pagination .page-numbers.current {
+  padding: 5px 10px;
+  border: 2px solid var(--primary-color);
+  border-radius: 5px;
+}
+.post-archive-pagination span.page-numbers.dots {
+  padding: 10px 5px;
+}
+.post-archive-pagination .next-icon::before {
+  content: "5";
+  font-family: "ETModules";
+  font-size: 20px;
+  padding: 6px;
+  border: 2px solid var(--primary-color);
+  border-radius: 5px;
+}
+.post-archive-pagination .prev-icon::before {
+  content: "4";
+  font-family: "ETModules";
+  font-size: 20px;
+  padding: 6px;
+  border: 2px solid var(--primary-color);
+  border-radius: 5px;
 }
 
 #posts-grid-container .post-container {

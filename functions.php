@@ -292,7 +292,7 @@ add_shortcode( 'recent_posts', 'recent_posts_shortcode' );
 function recent_posts_shortcode() {
     $args = array(
         'post_type'      => 'post',
-        'posts_per_page' => 6,
+        'posts_per_page' => 3,
         'orderby'        => 'date',
         'order'          => 'DESC',
     );
@@ -306,6 +306,44 @@ function recent_posts_shortcode() {
             $query->the_post();
             get_template_part('template-parts/post/archive', 'post');
         }
+        ?></div><?php
+    } else {
+        echo '<p>No posts found</p>';
+    }
+    wp_reset_postdata();
+    return ob_get_clean();
+}
+
+/**
+ * Posts archive
+ */
+add_shortcode( 'posts_archive', 'posts_archive_shortcode' );
+function posts_archive_shortcode() {
+    $args = array(
+        'post_type' => 'post',
+        'posts_per_page' => 12,
+        'paged' => get_query_var('paged') ? get_query_var('paged') : 1
+    );
+
+    $query = new WP_Query( $args );
+
+    ob_start();
+    if ( $query->have_posts() ) {
+        ?><div class="row g-5" id="posts-grid-container"><?php
+        while ( $query->have_posts() ) {
+            $query->the_post();
+            get_template_part('template-parts/post/archive', 'post');
+        }
+        ?>
+        </div>
+        <div class="post-archive-pagination">
+        <?php
+        echo paginate_links(array(
+            'total' => $query->max_num_pages,
+            'mid_size' => 1,
+            'prev_text' => '<span class="prev-icon"></span>',
+            'next_text' => '<span class="next-icon"></span>',
+        ));
         ?></div><?php
     } else {
         echo '<p>No posts found</p>';
