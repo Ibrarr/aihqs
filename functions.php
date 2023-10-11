@@ -433,3 +433,56 @@ function save_first_category_link_as_custom_field( $post_id ) {
         update_post_meta( $post_id, 'first_category_name_and_link', $link_html );
     }
 }
+
+
+/**
+ * Add Content Editor role
+ */
+add_action('init', 'add_content_editor_role');
+
+function add_content_editor_role() {
+    add_role(
+        'content_editor',
+        'Content Editor',
+        array(
+            'read' => true,
+            'edit_posts' => true,
+            'publish_posts' => true,
+            'delete_posts' => true,
+            'edit_others_posts' => true,
+            'delete_others_posts' => true,
+
+            'edit_ai-tools' => true,
+            'publish_ai-tools' => true,
+            'delete_ai-tools' => true,
+            'edit_others_ai-tools' => true,
+            'delete_others_ai-tools' => true,
+
+            'manage_categories' => true,
+
+            'list_users' => true,
+            'create_users' => true,
+            'edit_users' => true,
+            'delete_users' => true,
+
+            'upload_files' => true,
+            'edit_files' => true,
+            'delete_files' => true,
+        )
+    );
+}
+
+/**
+ * Remove admin pages for Content Editor role
+ */
+add_action('admin_menu', 'remove_admin_menu_pages_for_content_editor', 999);
+function remove_admin_menu_pages_for_content_editor() {
+    $current_user = wp_get_current_user();
+
+    if (in_array('content_editor', $current_user->roles)) {
+        // Remove specific admin menu pages
+        remove_menu_page('tools.php');
+        remove_menu_page('wpseo_workouts');
+        remove_menu_page('rate-my-post');
+    }
+}
