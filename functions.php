@@ -3,7 +3,7 @@ add_action('wp_enqueue_scripts', 'enqueue_styles_scripts');
 function enqueue_styles_scripts()
 {
     wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
-    wp_enqueue_style('child-style', get_stylesheet_uri() . '/style.css');
+    wp_enqueue_style('child-style', get_stylesheet_directory_uri() . '/style.css');
 
     wp_enqueue_style('site', get_stylesheet_directory_uri().'/dist/css/app.css', [], filemtime(  get_stylesheet_directory().'/dist/css/app.css' ), 'all');
     wp_enqueue_style('selectize', get_stylesheet_directory_uri().'/dist/css/selectize.css', [], filemtime(  get_stylesheet_directory().'/dist/css/selectize.css' ), 'all');
