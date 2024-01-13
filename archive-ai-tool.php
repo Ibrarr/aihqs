@@ -26,7 +26,9 @@
                         echo '<option value="">All Categories</option>';
 
                         foreach ($categories as $category) {
-                            echo '<option value="' . esc_attr($category->slug) . '">' . esc_html($category->name) . '</option>';
+                            if ($category->slug !== 'uncategorised') {
+                                echo '<option value="' . esc_attr($category->slug) . '">' . esc_html($category->name) . '</option>';
+                            }
                         }
                         ?>
                     </select>
